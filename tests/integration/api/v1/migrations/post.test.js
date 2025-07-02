@@ -2,7 +2,7 @@ import database from "infra/database.js";
 import orchestrator from "tests/orchestrator.js";
 
 beforeAll(async () => {
-  await orchestrator.waitForAllServices
+  await orchestrator.waitForAllServices();
   await database.query("DROP SCHEMA PUBLIC CASCADE; CREATE SCHEMA PUBLIC;");
 });
 
@@ -12,6 +12,7 @@ test("POST para /api/v1/migrations deve retornar 200", async () => {
   });
   expect(response1?.status).toBe(201);
   const response1Body = await response1.json();
+
   expect(Array.isArray(response1Body)).toBe(true);
   expect(response1Body.length).toBeGreaterThan(0);
 
@@ -20,6 +21,7 @@ test("POST para /api/v1/migrations deve retornar 200", async () => {
   });
   expect(response2?.status).toBe(200);
   const response2Body = await response2.json();
+
   expect(Array.isArray(response2Body)).toBe(true);
   expect(response2Body.length).toBe(0);
 });
